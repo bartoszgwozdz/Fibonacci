@@ -5,8 +5,11 @@ import java.util.Map;
 
 public class FibonacciSequence {
     private static Map<Integer,BigInteger> sequence;
+    private FibonacciSequenceBackup fibonacciSequenceBackup;
+
     public FibonacciSequence() {
         sequence = new HashMap<>();
+        fibonacciSequenceBackup= new FibonacciSequenceBackup();
     }
 
     public void generate(int iterations) {
@@ -43,5 +46,14 @@ public class FibonacciSequence {
 
     public void clean() {
         sequence.clear();
+    }
+
+    public boolean backup() {
+        if(sequence.isEmpty()){
+            return false;
+        }else{
+            fibonacciSequenceBackup.backup(sequence);
+            return true;
+        }
     }
 }

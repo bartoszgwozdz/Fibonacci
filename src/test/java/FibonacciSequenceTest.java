@@ -12,7 +12,9 @@ import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FibonacciSequenceTest {
     static FibonacciSequence generator;
@@ -35,6 +37,25 @@ public class FibonacciSequenceTest {
     @Test
     void shouldNotAcceptNegativeArguments(){
         assertThrows(IllegalArgumentException.class, () -> generator.generate(-4));
+    }
+
+    @Test
+    void shouldBackupResultToFile(){
+        //given
+        generator.generate(13);
+        //when
+        boolean backupSuccess = generator.backup();
+        //then
+        assertTrue(backupSuccess);
+    }
+    @Test
+    void shouldNotBackupWithoutResult(){
+        //given
+        generator.generate(13);
+        //when
+        boolean backupSuccess = generator.backup();
+        //then
+        assertFalse(backupSuccess);
     }
 
     @ParameterizedTest
